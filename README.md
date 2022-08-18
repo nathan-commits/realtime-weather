@@ -19,7 +19,7 @@ set weather_longitude 2.35
 set weather_useFahrenheit true
 set weather_realtimeTime true
 
-ensure realtimeWeather
+ensure realtime-weather
 ```
 
 ## Config
