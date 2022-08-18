@@ -8,7 +8,7 @@ cd resources
 git clone https://github.com/nathan-commits/realtime-weather
 ```
 
-**Manual** [download]()
+**Manual** [download](https://github.com/nathan-commits/realtime-weather/releases/tag/v0.1)
 - Extract the resource folder into your resources folder
 
 **server.cfg example**
