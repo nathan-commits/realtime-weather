@@ -1,4 +1,5 @@
 GlobalState.weatherCode = nil
+local freezedTime = nil
 
 local presetLocations = {
 	["berlin"] = { lat = 52.52, long = 13.41 },
@@ -65,5 +66,35 @@ RegisterNetEvent("realtimeWeather:requestTime", function()
 	if GetConvar("weather_realtimeTime", "false") == "false" then return end
 	
 	debugLog("Updating realtime time for %d", source)
-	TriggerClientEvent("realtimeWeather:updateTime", source, os.date("*t"))
+	TriggerClientEvent("realtimeWeather:updateTime", source, freezedTime or os.date("*t"), freezedTime ~= nil)
+end)
+
+RegisterNetEvent("realtimeWeather:setTime", function(hour, min)
+	if hour and min then
+		TriggerClientEvent("realtimeWeather:updateTime", -1, {hour = hour, min = min, sec = 0}, freezedTime ~= nil)
+	else -- resync realtime
+		TriggerClientEvent("realtimeWeather:updateTime", -1, freezedTime or os.date("*t"), freezedTime ~= nil)
+	end
+end)
+
+RegisterNetEvent("realtimeWeather:setWeather", function(code)
+	if code then
+		GlobalState.weatherCode = code
+	else -- resync realweather
+		updateWeather()
+	end
+end)
+
+RegisterNetEvent("realtimeWeather:freezeTime", function(status)
+	if status then
+		freezedTime = os.date("*t")
+		TriggerClientEvent("realtimeWeather:updateTime", -1, freezedTime, true)
+	else
+		freezedTime = nil
+		TriggerClientEvent("realtimeWeather:updateTime", -1, os.date("*t"))
+	end
+end)
+
+RegisterNetEvent("realtimeWeather:freezeWeather", function(status)
+	GlobalState.freezeWeather = status
 end)
