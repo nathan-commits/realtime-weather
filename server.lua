@@ -1,6 +1,6 @@
 GlobalState.weatherCode = nil
 
-local defaultLocations = {
+local presetLocations = {
 	["berlin"] = { lat = 52.52, long = 13.41 },
 	["paris"] = { lat = 48.85, long = 2.35 },
 	["london"] = { lat = 51.50, long = -0.13 },
@@ -21,9 +21,9 @@ local function requestWeather(cb)
 	local longitude = GetConvar("weather_longitude", "0")
 	local location = string.lower(GetConvar("weather_presetLocation", "paris"))
 
-	if (latitude ~= "0") and (longitude ~= "0") and defaultLocations[location] then
-		latitude = defaultLocations[location].lat
-		longitude = defaultLocations[location].long
+	if (latitude == "0") and (longitude == "0") and presetLocations[location] then
+		latitude = presetLocations[location].lat
+		longitude = presetLocations[location].long
 	end
 
 	local url = ("https://api.open-meteo.com/v1/forecast?latitude=%s&longitude=%s&current_weather=true"):format(latitude, longitude)
