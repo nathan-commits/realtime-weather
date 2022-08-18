@@ -5,10 +5,10 @@ Reallife weather and time sync for FiveM
 **Git**
 ```
 cd resources
-git clone https://github.com/nathan-commits/realtimeWeather
+git clone https://github.com/nathan-commits/realtime-weather
 ```
 
-**Manual** [download](https://github.com/nathan-commits/realtimeWeather/archive/refs/tags/v.0.1.zip)
+**Manual** [download]()
 - Extract the resource folder into your resources folder
 
 **server.cfg example**
