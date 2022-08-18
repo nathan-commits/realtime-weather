@@ -30,7 +30,11 @@ local weatherCodes = {
 }
 
 local function setWeatherByCode(code, instant)
+	local snowOnGround = weatherCodes[code].type == "xmas"
+	
 	SetWeatherTypeOvertimePersist(weatherCodes[code].type, instant and 0.0 or 15.0)
+	SetForceVehicleTrails(snowOnGround)
+	SetForcePedFootstepsTracks(snowOnGround)
 end
 
 CreateThread(function()
