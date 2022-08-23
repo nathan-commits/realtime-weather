@@ -9,18 +9,23 @@ end
 
 local function GetWeatherType(weatherCode)
 	local weatherTypes = weatherCodes[weatherCode]
-	
-	if weatherTypes[1].chance == 100 or GetConvar('weather_disableDynamic', 'false') == 'true' then 
-		return weatherTypes[1].type
-	end
-	
 	local random = math.random(1, 100)
+	local weatherType = weatherTypes[1].type
 
-	for i = 1, #weatherTypes do
-		if weatherTypes[i].chance >= random then
-			return weatherTypes[i].type			
+	if GetConvar('weather_disableDynamic', 'false') ~= 'true' then
+		for i = 1, #weatherTypes do
+			if weatherTypes[i].chance >= random then
+				weatherType = weatherTypes[i].type	
+				break		
+			end
 		end
 	end
+
+	if weatherType == 'xmas' and GetConvar('weather_disableSnow', 'false') == 'true' then
+		weatherType = 'snow'
+	end
+
+	return weatherType
 end
 
 local function RequestWeather(cb)

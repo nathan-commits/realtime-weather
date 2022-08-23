@@ -33,7 +33,8 @@ All convars can be set with `set <convar name> <convar value>`
 |weather_latitude           |Latitude                                                                                                               |0          |
 |weather_longitude          |Longitude                                                                                                              |0          |
 |weather_presetLocation     |Preset latitude and longitude for: Berlin, Paris, London, Madrid and Amsterdam                                         |"Paris"    |
-|weather_disableDynamic     |Disable dynamic weather. Only update once an hour.                                                                     |false      |
+|weather_disableSnow        |Disable snow on ground                                                                                                 |false      |
+|weather_disableDynamic     |Disable dynamic weather: only update once an hour.                                                                     |false      |
 |weather_useFahrenheit      |Use fahrenheit for temperature export.                                                                                 |false      |
 |weather_realtimeTime       |Real day and night cycle sync. Works only after relogging or restarting.                                               |false      |
 |weather_updateFrequency    |Weather update frequency. I strongly recommend not to change this number. The current API only updates once an hour.   |600000     |
@@ -44,6 +45,6 @@ All convars can be set with `set <convar name> <convar value>`
 - [x] ~~Realistic day and night cycle sync~~.
 - [ ] Option to set a different weather or time via an export. 
 - [ ] Exports to set or freeze weather and time.
-- [ ] Convar value to enable or disable snow on the roads.
+- [x] ~~Convar value to enable or disable snow on the roads.~~
 - [ ] Possibility of setting a 'personal' time and weather via an export.
 - [ ] More preset locations.
