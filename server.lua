@@ -55,6 +55,7 @@ local function RequestWeather(cb)
 		end
 
 		DebugLog('Weather data update finished in %d ms', GetGameTimer() - requestStart)
+		cb(resultObject)
 	end)
 end
 
@@ -63,11 +64,11 @@ local function UpdateWeather()
 		local currentWeather = weather.current_weather
 		local weatherCode = math.floor(currentWeather.weathercode)
 		local weatherType = GetWeatherType(weatherCode)
-
+		
 		GlobalState.weatherType = weatherType
 		GlobalState.temperature = currentWeather.temperature
 
-		DebugLog('New weather code: %d', weatherCode)
+		DebugLog('New weather type: %s', weatherType)
 	end)
 end
 

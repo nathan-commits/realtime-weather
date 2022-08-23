@@ -1,6 +1,6 @@
 
-local function SetWeather(code, instant)
-	SetWeatherTypeOvertimePersist(weatherCodes[code].type, instant and 0.0 or 15.0)
+local function SetWeather(weatherType, instant)
+	SetWeatherTypeOvertimePersist(weatherType, instant and 0.0 or 15.0)
 end
 
 CreateThread(function()
