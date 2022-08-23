@@ -1,17 +1,25 @@
-GlobalState.weatherCode = nil
-
-local presetLocations = {
-	['berlin'] = { lat = 52.52, long = 13.41 },
-	['paris'] = { lat = 48.85, long = 2.35 },
-	['london'] = { lat = 51.50, long = -0.13 },
-	['madrid'] = { lat = 40.42, long = -3.70 },
-	['amsterdam'] = { lat = 52.37, long = 4.89 },
-}
+GlobalState.weatherType = nil
 
 local function DebugLog(string, ...)
 	if GetConvar('weather_debugMode', 'false') == 'true' then
 		local string = tostring(string)
 		print(string:format(...))
+	end
+end
+
+local function GetWeatherType(weatherCode)
+	local weatherTypes = weatherCodes[weatherCode]
+	
+	if weatherTypes[1].chance == 100 or GetConvar('weather_disableDynamic', 'false') == 'true' then 
+		return weatherTypes[1].type
+	end
+	
+	local random = math.random(1, 100)
+
+	for i = 1, #weatherTypes do
+		if weatherTypes[i].chance >= random then
+			return weatherTypes[i].type			
+		end
 	end
 end
 
@@ -21,7 +29,7 @@ local function RequestWeather(cb)
 	local longitude = GetConvar('weather_longitude', '0')
 	local location = string.lower(GetConvar('weather_presetLocation', 'paris'))
 
-	if (latitude == '0') and (longitude == '0') and presetLocations[location] then
+	if latitude == '0' and longitude == '0' and presetLocations[location] then
 		latitude = presetLocations[location].lat
 		longitude = presetLocations[location].long
 	end
@@ -36,7 +44,7 @@ local function RequestWeather(cb)
 	DebugLog('Weather data update starting for %s (latitude) %s (longitude)', latitude, longitude)
 	PerformHttpRequest(url, function(errorCode, resultData)
 		local resultObject = json.decode(resultData)
-		
+
 		if errorCode == 400 or not resultObject then
 			return DebugLog('Weather data update failed')
 		end
@@ -49,7 +57,9 @@ local function UpdateWeather()
 	RequestWeather(function(weather)
 		local currentWeather = weather.current_weather
 		local weatherCode = math.floor(currentWeather.weathercode)
-		GlobalState.weatherCode = weatherCode
+		local weatherType = GetWeatherType(weatherCode)
+
+		GlobalState.weatherType = weatherType
 		GlobalState.temperature = currentWeather.temperature
 
 		DebugLog('New weather code: %d', weatherCode)
