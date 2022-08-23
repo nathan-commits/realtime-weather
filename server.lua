@@ -35,12 +35,13 @@ local function RequestWeather(cb)
 
 	DebugLog('Weather data update starting for %s (latitude) %s (longitude)', latitude, longitude)
 	PerformHttpRequest(url, function(errorCode, resultData)
-		if errorCode == 400 then
+		local resultObject = json.decode(resultData)
+		
+		if errorCode == 400 or not resultObject then
 			return DebugLog('Weather data update failed')
 		end
 
 		DebugLog('Weather data update finished in %d ms', GetGameTimer() - requestStart)
-		cb(json.decode(resultData))
 	end)
 end
 
