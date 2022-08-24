@@ -25,7 +25,7 @@ ensure realtime-weather
 ## Config
 The config of this script consists entirely of [convars](https://docs.fivem.net/docs/scripting-reference/convars/). These can be modified during runtime, but it is recommended to do so before starting the script. 
 
-All convars can be set with `set <convar name> <convar value>`
+All convars can be set using `set <convar name> <convar value>`
 
 |Convar                     |Description                                                                                                            |Default    |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------------|-----------|
@@ -41,7 +41,7 @@ All convars can be set with `set <convar name> <convar value>`
 
 ## Planned features
 - [x] ~~More dynamic weather. For example, when it rains, several short showers instead of one hour of rain.~~
-- [ ] Possibility to have different weather conditions in Paleto and on Cayo Perico.
+- [ ] Possibility to set different weather location for Cayo Perico.
 - [x] ~~Realistic day and night cycle sync~~.
 - [ ] Option to set a different weather or time via an export. 
 - [ ] Exports to set or freeze weather and time.
