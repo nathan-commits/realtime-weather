@@ -14,9 +14,11 @@ local function GetWeatherType(weatherCode)
 
 	if GetConvar('weather_disableDynamic', 'false') ~= 'true' then
 		for i = 1, #weatherTypes do
-			if weatherTypes[i].chance >= random then
-				weatherType = weatherTypes[i].type	
-				break		
+			random = random - weatherTypes[i].chance
+
+			if random < 0 then
+				weatherType = weatherTypes[i].type
+				break
 			end
 		end
 	end
@@ -64,7 +66,7 @@ local function UpdateWeather()
 		local currentWeather = weather.current_weather
 		local weatherCode = math.floor(currentWeather.weathercode)
 		local weatherType = GetWeatherType(weatherCode)
-		
+
 		GlobalState.weatherType = weatherType
 		GlobalState.temperature = currentWeather.temperature
 
