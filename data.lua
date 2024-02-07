@@ -35,4 +35,5 @@ presetLocations = {
 	['london'] = { lat = 51.50, long = -0.13 },
 	['madrid'] = { lat = 40.42, long = -3.70 },
 	['amsterdam'] = { lat = 52.37, long = 4.89 },
+	['montreal'] = { lat = 45.50, long = -73.56},
 }
